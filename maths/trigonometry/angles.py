@@ -2,6 +2,8 @@ import os
 import sys
 import math
 from tabulate import tabulate
+from maths.arithmetic.defines import EPSILON
+from maths.arithmetic.utils import sign_factor, is_within_bounds
 
 sys.path.extend([os.getcwd()])
 
@@ -13,6 +15,7 @@ For character codes, [shift]+[control]+U, then continuing to hold
 θ = 03B8
 '''
 
+TWO_PI = math.pi * 2
 
 def display_common_angle_names():
     headers=['Angle', 'Degrees', 'Radians (π)', 'Radians (~#)']
@@ -58,3 +61,40 @@ def radians_to_pi(value):
 def radians_to_degrees(value):
     return value * 180 / math.pi
 
+def degrees_to_radians(value):
+    return value * math.pi / 180
+
+# Value in radians
+def is_in_principal_interval(value):
+    if value < 0:
+        return True if value <= 0 and value >= -2 * math.pi else False
+    return True if value >= 0 and value <= 2 * math.pi else False
+
+# Value in radians
+def translate_to_principal_interval(value):
+    sign = sign_factor(value)
+    reduced = value / TWO_PI
+    frac, whole = math.modf(reduced)
+    # Cases in which the supplied angle is coterminal with 2π
+    if whole != 0.0 and frac == 0.0:
+        return sign * TWO_PI
+    return frac * TWO_PI # "frac" retains the sign
+
+# Value in radians
+def are_coterminal(value1, value2, epsilon=EPSILON):
+    diff = abs(translate_to_principal_interval(value2 - value1))
+    print(diff, value1, value2)
+    if is_within_bounds(diff, epsilon):
+        return True
+    if is_within_bounds(diff - TWO_PI, epsilon):
+        return True
+    return False
+
+# Value in radians
+def number_of_full_rotations(value):
+    if value < 0 and value > -TWO_PI:
+        return 0
+    if value >= 0 and value < TWO_PI:
+        return 0
+    _, whole = math.modf(value / TWO_PI)
+    return int(whole)
