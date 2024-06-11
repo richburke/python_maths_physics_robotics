@@ -1,26 +1,25 @@
 #!/usr/bin/env python3
 import math
-from maths.trigonometry.angles import are_coterminal, degrees_to_radians
-from maths.trigonometry.identities import cos_to_tan
+from maths.trigonometry.defines import PI_OVER_TWO, THREE_PI_OVER_TWO, QuadrantLocation
+from maths.trigonometry.angles import degrees_to_radians, to_principal_interval, to_positive_angle, to_negative_angle, number_of_full_rotations
+from maths.trigonometry.identities import values_from
 
 def main(args=None):
-    # print(convert_radians_to_pi(4.0))
-    # display_common_angle_locations()
-    # print(are_coterminal((71 * math.pi)/16, (-25 * math.pi)/16))
-    # print(are_coterminal(degrees_to_radians(-150), degrees_to_radians(210)))
-    # print(are_coterminal(degrees_to_radians(-150), degrees_to_radians(570)))
-    # print(-2.6179938779914944 + 6.28, 3.6651914291880923)
-    v1 = -0.412
-    # v2 = 17/15
-    # x = sin_cos(v1)[0]
-    # y = cos_sin_to_cot(x, v1)
-    x = cos_to_tan(v1)[1]
-    print(x)
-    # print(sin_csc(sin_csc(v)))
-    # print(v)
-    # v = cos_sin_to_cot(1, v)
-    # print(v)
-    # v = cos_sin_to_cot(1, v)
+    v1 = to_positive_angle(7 * math.pi / 3)
+    v2 = to_positive_angle(25 * math.pi / 6)
+    print(to_principal_interval(v1), to_principal_interval(v2))
+
+    print(number_of_full_rotations(v1), number_of_full_rotations(v2))
+
+    print(PI_OVER_TWO)
+    a = math.pi
+    a_prime = to_principal_interval(a)
+    x = values_from(a)
+    # x = values_from_cosine(QuadrantLocation.I)(v1)
+    print(x, a_prime)
+    # print(THREE_PI_OVER_TWO)
+
+    # v = math.sqrt(42)/6
     # print(v)
 
 if __name__ == "__main__":

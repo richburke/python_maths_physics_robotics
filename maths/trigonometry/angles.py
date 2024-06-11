@@ -3,6 +3,7 @@ import sys
 import math
 from tabulate import tabulate
 from maths.arithmetic.defines import EPSILON
+from maths.trigonometry.defines import TWO_PI, QuadrantLocation
 from maths.arithmetic.utils import sign_factor, is_within_bounds
 
 sys.path.extend([os.getcwd()])
@@ -15,7 +16,6 @@ For character codes, [shift]+[control]+U, then continuing to hold
 θ = 03B8
 '''
 
-TWO_PI = math.pi * 2
 
 def display_common_angle_names():
     headers=['Angle', 'Degrees', 'Radians (π)', 'Radians (~#)']
@@ -71,7 +71,7 @@ def is_in_principal_interval(value):
     return True if value >= 0 and value <= 2 * math.pi else False
 
 # Value in radians
-def translate_to_principal_interval(value):
+def to_principal_interval(value):
     sign = sign_factor(value)
     reduced = value / TWO_PI
     frac, whole = math.modf(reduced)
@@ -82,7 +82,7 @@ def translate_to_principal_interval(value):
 
 # Value in radians
 def are_coterminal(value1, value2, epsilon=EPSILON):
-    diff = abs(translate_to_principal_interval(value2 - value1))
+    diff = abs(to_principal_interval(value2 - value1))
     print(diff, value1, value2)
     if is_within_bounds(diff, epsilon):
         return True
@@ -98,3 +98,33 @@ def number_of_full_rotations(value):
         return 0
     _, whole = math.modf(value / TWO_PI)
     return int(whole)
+
+def to_positive_angle(value):
+    if value < 0:
+        return value + TWO_PI + (TWO_PI * number_of_full_rotations(abs(value)))
+    return value
+
+def to_negative_angle(value):
+    if value > 0:
+        return value - TWO_PI - (TWO_PI * number_of_full_rotations(value))
+    return value
+
+def quadrant_location_of_angle(value):
+    if value < 0:
+        value = to_positive_angle(value)
+
+    if value == math.pi / 2:
+        return QuadrantLocation.YPositive
+    if value == math.pi:
+        return QuadrantLocation.XNegative
+    if value == 3 * math.pi / 2:
+        return QuadrantLocation.YNegative
+    if value < math.pi / 2:
+        return QuadrantLocation.I
+    if value < math.pi:
+        return QuadrantLocation.II
+    if value < 3 * math.pi / 2:
+        return QuadrantLocation.III
+    if value < 2 * math.pi:
+        return QuadrantLocation.IV
+    return QuadrantLocation.XPositive
