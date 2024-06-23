@@ -1,26 +1,28 @@
 #!/usr/bin/env python3
 import math
-from maths.trigonometry.defines import PI_OVER_TWO, THREE_PI_OVER_TWO, QuadrantLocation
-from maths.trigonometry.angles import degrees_to_radians, to_principal_interval, to_positive_angle, to_negative_angle, number_of_full_rotations
-from maths.trigonometry.identities import values_from
+from maths.arithmetic.utils import integers_within_interval
+from maths.algebra.functions import is_function_even, is_function_odd
+from maths.geometry.circles import radius_from_origin_and_point
+from maths.trigonometry.defines import PI, PI_OVER_TWO, THREE_PI_OVER_TWO, QuadrantLocation
+from maths.trigonometry.angles import degrees_to_radians, radians_to_degrees, to_principal_interval, to_positive_angle, to_negative_angle, number_of_full_rotations, angle_from_xy
+from maths.trigonometry.identities import values_from, sin_cos, cos_sec, quadrants_of_cosecant, sin_csc
+from maths.trigonometry.unit_circle import display_common_unit_circle_coordinates, coterminal_angles_within_interval, reference_angle
 
 def main(args=None):
-    v1 = to_positive_angle(7 * math.pi / 3)
-    v2 = to_positive_angle(25 * math.pi / 6)
-    print(to_principal_interval(v1), to_principal_interval(v2))
+    alpha = angle_from_xy((12, 5))
+    theta = alpha + PI
+    print(math.sin(theta), math.cos(theta))
+    print('A', -5 /13, -12 / 13)
+    print('B', -12/17, -5/17)
+    print('C', 5 / 17, -12 / 17)
+    print('D', 12/13, 5/13)
+    # print(-2 * math.sqrt(5) / 5, 4 * math.sqrt(5) / 5)
 
-    print(number_of_full_rotations(v1), number_of_full_rotations(v2))
-
-    print(PI_OVER_TWO)
-    a = math.pi
-    a_prime = to_principal_interval(a)
-    x = values_from(a)
-    # x = values_from_cosine(QuadrantLocation.I)(v1)
-    print(x, a_prime)
-    # print(THREE_PI_OVER_TWO)
-
-    # v = math.sqrt(42)/6
-    # print(v)
+    # print(unit_circle_angles_of_sine(math.sin(math.radians(60))))
+    # print(y)
+    # print(degrees_to_radians(60), degrees_to_radians(300), degrees_to_radians(30), degrees_to_radians(330), degrees_to_radians(120), degrees_to_radians(150))
+    # print(to_principal_interval(-75 * PI / 8), to_principal_interval(-75 * PI / 8) + 2 * PI)
+    # print(quadrants_of_cosecant(quadrants_of_cosecant(y[1])))
 
 if __name__ == "__main__":
     main()

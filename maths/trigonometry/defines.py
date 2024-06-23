@@ -5,9 +5,10 @@ from enum import IntEnum
 
 sys.path.extend([os.getcwd()])
 
-PI_OVER_TWO = math.pi / 2
-TWO_PI = math.pi * 2
-THREE_PI_OVER_TWO = 3 * math.pi / 2
+PI = math.pi
+PI_OVER_TWO = PI / 2
+TWO_PI = PI* 2
+THREE_PI_OVER_TWO = 3 * PI / 2
 
 class TrigFunction(IntEnum):
     SINE = 1

@@ -244,4 +244,3 @@ def values_from_secant(value):
     cosine = cos_sec(value)
     angle = math.acos(cosine)
     return values_from(angle)
-

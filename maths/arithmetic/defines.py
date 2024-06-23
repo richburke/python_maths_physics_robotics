@@ -3,4 +3,4 @@ import sys
 
 sys.path.extend([os.getcwd()])
 
-EPSILON = 0.00001
+EPSILON = 0.0000001
