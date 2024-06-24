@@ -16,6 +16,9 @@ def div(denominator, undef = None):
         return numerator / denominator
     return fn
 
+def squared(v):
+    return pow(v, 2)
+
 def clamp(upper, lower=0):
     def fn(value):
         if value < lower:
