@@ -83,3 +83,16 @@ def coterminal_angles_within_interval(lower_bound, upper_bound):
             a.append(angle + integer * TWO_PI)
         return a
     return fn
+
+def point_from_angle(angle):
+    angle = standardize_angle(angle)
+    x = math.cos(angle)
+    y = math.sin(angle)
+    return (x, y)
+
+def angle_from_point(point):
+    x, y = point
+    return math.atan2(y, x)
+
+def angle_from_sine_cosine(sine, cosine):
+    return math.atan2(sine, cosine)

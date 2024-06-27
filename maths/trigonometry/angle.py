@@ -117,6 +117,11 @@ def standardize_angle(value):
         value = to_principal_interval(value)
     return value
 
+def angle_after_rotations(rotations):
+    def fn(angle):
+        return angle + TWO_PI * rotations
+    return fn
+
 def quadrant_location_of_angle(value):
     value = standardize_angle(value)
     if value == PI / 2:

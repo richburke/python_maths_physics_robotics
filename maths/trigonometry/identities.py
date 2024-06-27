@@ -2,7 +2,7 @@ import os
 import sys
 import math
 from maths.arithmetic.utils import div
-from maths.trigonometry.defines import PI_OVER_TWO, TWO_PI, THREE_PI_OVER_TWO, Quadrant, QuadrantLocation
+from maths.trigonometry.defines import PI, PI_OVER_TWO, TWO_PI, THREE_PI_OVER_TWO, TrigFunctionNames, Quadrant, QuadrantLocation
 from maths.trigonometry.angles import quadrant_location_of_angle, to_principal_interval
 
 sys.path.extend([os.getcwd()])
@@ -138,12 +138,12 @@ def _index_of_values(quadrant = Quadrant.I):
     index_cos_sec = 0 if quadrant in [Quadrant.I, Quadrant.IV] else 1
     index_tan_cot = 0 if quadrant in [Quadrant.I, Quadrant.III] else 1
     return {
-        "sine": index_sin_csc,
-        "cosecant": index_sin_csc,
-        "cosine": index_cos_sec,
-        "secant": index_cos_sec,
-        "tangent": index_tan_cot,
-        "cotangent": index_tan_cot,
+        TrigFunctionNames.SINE: index_sin_csc,
+        TrigFunctionNames.COSECANT: index_sin_csc,
+        TrigFunctionNames.COSINE: index_cos_sec,
+        TrigFunctionNames.SECANT: index_cos_sec,
+        TrigFunctionNames.TANGENT: index_tan_cot,
+        TrigFunctionNames.COTANGENT: index_tan_cot,
     }
 
 def values_from(angle):
@@ -155,48 +155,48 @@ def values_from(angle):
             "angle": angle,
             "principal_interval": principal_interval_angle,
             "quadrant": QuadrantLocation.XPositive,
-            "sine": 0,
-            "cosine": 1,
-            "tangent": 0,
-            "cotangent": None,
-            "secant": 1,
-            "cosecant": None,
+            TrigFunctionNames.SINE: 0,
+            TrigFunctionNames.COSINE: 1,
+            TrigFunctionNames.TANGENT: 0,
+            TrigFunctionNames.COTANGENT: None,
+            TrigFunctionNames.SECANT: 1,
+            TrigFunctionNames.COSECANT: None,
         }
     if principal_interval_angle == PI_OVER_TWO:
         return {
             "angle": angle,
             "principal_interval": principal_interval_angle,
             "quadrant": QuadrantLocation.YPositive,
-            "sine": 1,
-            "cosine": 0,
-            "tangent": None,
-            "cotangent": 0,
-            "secant": None,
-            "cosecant": 1,
+            TrigFunctionNames.SINE: 1,
+            TrigFunctionNames.COSINE: 0,
+            TrigFunctionNames.TANGENT: None,
+            TrigFunctionNames.COTANGENT: 0,
+            TrigFunctionNames.SECANT: None,
+            TrigFunctionNames.COSECANT: 1,
         }
-    if principal_interval_angle == math.pi:
+    if principal_interval_angle == PI:
         return {
             "angle": angle,
             "principal_interval": principal_interval_angle,
             "quadrant": QuadrantLocation.XNegative,
-            "sine": 0,
-            "cosine": -1,
-            "tangent": 0,
-            "cotangent": None,
-            "secant": -1,
-            "cosecant": None,
+            TrigFunctionNames.SINE: 0,
+            TrigFunctionNames.COSINE: -1,
+            TrigFunctionNames.TANGENT: 0,
+            TrigFunctionNames.COTANGENT: None,
+            TrigFunctionNames.SECANT: -1,
+            TrigFunctionNames.COSECANT: None,
         }
     if principal_interval_angle == THREE_PI_OVER_TWO:
         return {
             "angle": angle,
             "principal_interval": principal_interval_angle,
             "quadrant": QuadrantLocation.YNegative,
-            "sine": -1,
-            "cosine": 0,
-            "tangent": None,
-            "cotangent": 0,
-            "secant": None,
-            "cosecant": -1,
+            TrigFunctionNames.SINE: -1,
+            TrigFunctionNames.COSINE: 0,
+            TrigFunctionNames.TANGENT: None,
+            TrigFunctionNames.COTANGENT: 0,
+            TrigFunctionNames.SECANT: None,
+            TrigFunctionNames.COSECANT: -1,
         }
 
     sine = math.sin(principal_interval_angle)
@@ -210,37 +210,55 @@ def values_from(angle):
         "angle": angle,
         "principal_interval": principal_interval_angle,
         "quadrant": quadrant_location,
-        "sine": sine,
-        "cosine": cosine,
-        "tangent": tangent,
-        "cotangent": cotangent,
-        "secant": secant,
-        "cosecant": cosecant,
+        TrigFunctionNames.SINE: sine,
+        TrigFunctionNames.COSINE: cosine,
+        TrigFunctionNames.TANGENT: tangent,
+        TrigFunctionNames.COTANGENT: cotangent,
+        TrigFunctionNames.SECANT: secant,
+        TrigFunctionNames.COSECANT: cosecant,
     }
 
 def values_from_sine(value):
     angle = math.asin(value)
     return values_from(angle)
 
+def sine_from_values(values):
+    return values[TrigFunctionNames.SINE]
+
 def values_from_cosine(value):
     angle = math.acos(value)
     return values_from(angle)
 
+def cosine_from_values(values):
+    return values[TrigFunctionNames.COSINE]
+
 def values_from_tangent(value):
     angle = math.atan(value)
     return values_from(angle)
+
+def tangent_from_values(values):
+    return values[TrigFunctionNames.TANGENT]
 
 def values_from_cotangent(value):
     tangent = tan_cot(value)
     angle = math.atan(tangent)
     return values_from(angle)
 
+def cotangent_from_values(values):
+    return values[TrigFunctionNames.COTANGENT]
+
 def values_from_cosecant(value):
     sine = sin_csc(value)
     angle = math.asin(sine)
     return values_from(angle)
 
+def cosecant_from_values(values):
+    return values[TrigFunctionNames.COSECANT]
+
 def values_from_secant(value):
     cosine = cos_sec(value)
     angle = math.acos(cosine)
     return values_from(angle)
+
+def secant_from_values(values):
+    return values[TrigFunctionNames.SECANT]
