@@ -3,9 +3,8 @@ import sys
 import math
 from tabulate import tabulate
 from maths.arithmetic.defines import EPSILON
-from maths.arithmetic.utils import div
+from maths.arithmetic.utils import div, sign_factor, is_within_bounds
 from maths.trigonometry.defines import PI, TWO_PI, QuadrantLocation
-from maths.arithmetic.utils import sign_factor, is_within_bounds
 
 sys.path.extend([os.getcwd()])
 

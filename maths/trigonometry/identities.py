@@ -3,7 +3,7 @@ import sys
 import math
 from maths.arithmetic.utils import div
 from maths.trigonometry.defines import PI, PI_OVER_TWO, TWO_PI, THREE_PI_OVER_TWO, TrigFunctionNames, Quadrant, QuadrantLocation
-from maths.trigonometry.angles import quadrant_location_of_angle, to_principal_interval
+from maths.trigonometry.angle import quadrant_location_of_angle, to_principal_interval
 
 sys.path.extend([os.getcwd()])
 

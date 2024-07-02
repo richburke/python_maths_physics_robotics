@@ -4,7 +4,7 @@ import math
 from tabulate import tabulate
 from maths.arithmetic.utils import div, is_within_interval, integers_within_interval
 from maths.trigonometry.defines import PI, PI_OVER_TWO, TWO_PI, THREE_PI_OVER_TWO, Quadrant, QuadrantLocation
-from maths.trigonometry.angles import number_of_full_rotations, quadrant_location_of_angle, standardize_angle
+from maths.trigonometry.angle import number_of_full_rotations, quadrant_location_of_angle, standardize_angle
 from maths.trigonometry.identities import sin_cos, cot_to_csc, csc_to_cot, cos_tan_to_sin, cos_cot_to_sin, quadrants_of_cosine
 
 sys.path.extend([os.getcwd()])
