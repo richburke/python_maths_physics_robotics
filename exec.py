@@ -32,9 +32,7 @@ def main(args=None):
     # print(revolutions_per_minute(x), " revolutions per minute")
 
     # x = []
-    print("n")
     plot_sine_wave()
-    print("m")
 
 
     # xs = [-4, -3, -2, -1, 0, 1, 2, 3, 4]
