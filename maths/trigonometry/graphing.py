@@ -25,25 +25,6 @@ def plot_polar(fn, start, end, step):
     plt.show()
 '''
 
-def y_sine(x, vertical_scalar = 1, horizontal_scalar = 1, x_shift = 0, y_shift = 0):
-    return vertical_scalar * math.sin(horizontal_scalar * (x - x_shift)) + y_shift
-
-def y_cosine(x, vertical_scalar = 1, horizontal_scalar = 1, x_shift = 0, y_shift = 0):
-    return vertical_scalar * math.cos(horizontal_scalar * (x - x_shift)) + y_shift
-
-def y_tangent(x, vertical_scalar = 1, horizontal_scalar = 1, x_shift = 0, y_shift = 0):
-    return vertical_scalar * math.tan(horizontal_scalar * (x - x_shift)) + y_shift
-
-def y_cosecant(x, vertical_scalar = 1, horizontal_scalar = 1, x_shift = 0, y_shift = 0):
-    csc = sin_csc( math.sin(horizontal_scalar * (x - x_shift)))
-    return vertical_scalar * csc + y_shift
-
-def y_secant(x, vertical_scalar = 1, horizontal_scalar = 1, x_shift = 0, y_shift = 0):
-    return vertical_scalar * (1 / math.cos(horizontal_scalar * (x - x_shift))) + y_shift
-
-def y_cotangent(x, vertical_scalar = 1, horizontal_scalar = 1, x_shift = 0, y_shift = 0):
-    return vertical_scalar * (1 / math.tan(horizontal_scalar * (x - x_shift))) + y_shift
-
 def amplitude_from_scalar(vertical_scalar = 1):
     np.abs(vertical_scalar)
 
@@ -61,41 +42,70 @@ def period(trig_function = TrigFunction.SINE):
         return PI / np.abs(horizontal_scalar)
     return fn
 
+def y_sine(x, vertical_scalar = 1, horizontal_scalar = 1, phase_shift = 0, y_shift = 0):
+    return vertical_scalar * math.sin(horizontal_scalar * (x - phase_shift)) + y_shift
+
+def y_cosine(x, vertical_scalar = 1, horizontal_scalar = 1, phase_shift = 0, y_shift = 0):
+    return vertical_scalar * math.cos(horizontal_scalar * (x - phase_shift)) + y_shift
+
+def y_tangent(x, vertical_scalar = 1, horizontal_scalar = 1, phase_shift = 0, y_shift = 0):
+    return vertical_scalar * math.tan(horizontal_scalar * (x - phase_shift)) + y_shift
+
+def y_cosecant(x, vertical_scalar = 1, horizontal_scalar = 1, phase_shift = 0, y_shift = 0):
+    csc = sin_csc( math.sin(horizontal_scalar * (x - phase_shift)))
+    return vertical_scalar * csc + y_shift
+
+def y_secant(x, vertical_scalar = 1, horizontal_scalar = 1, phase_shift = 0, y_shift = 0):
+    return vertical_scalar * (1 / math.cos(horizontal_scalar * (x - phase_shift))) + y_shift
+
+def y_cotangent(x, vertical_scalar = 1, horizontal_scalar = 1, phase_shift = 0, y_shift = 0):
+    return vertical_scalar * (1 / math.tan(horizontal_scalar * (x - phase_shift))) + y_shift
+
+def adjacent_vertical_asympotes(trig_function):
+    def fn(horizontal_scalar = 1, phase_shift = 0):
+        if trig_function == TrigFunction.TANGENT:
+            return (-PI / (2 * horizontal_scalar) - phase_shift, PI / (2 * horizontal_scalar) - phase_shift)
+        elif trig_function == TrigFunction.COTANGENT:
+            return (0 - phase_shift, PI / horizontal_scalar - phase_shift)
+        else:
+            return (None, None)
+    return fn
+
 def plot_sine(theta = RANGE_PRINCIPAL_INTERVAL):
-    def fn(vertical_scalar = 1, horizontal_scalar = 1, x_shift = 0, y_shift = 0):
-        y = [y_sine(i, vertical_scalar, horizontal_scalar, x_shift, y_shift) for i in theta]
+    def fn(vertical_scalar = 1, horizontal_scalar = 1, phase_shift = 0, y_shift = 0):
+        y = [y_sine(i, vertical_scalar, horizontal_scalar, phase_shift, y_shift) for i in theta]
         plt.plot(theta, y)
         plt.show()
     return fn
 
 def plot_sine_with_unscaled(theta = RANGE_PRINCIPAL_INTERVAL):
-    def fn(vertical_scalar = 1, horizontal_scalar = 1, x_shift = 0, y_shift = 0):
+    def fn(vertical_scalar = 1, horizontal_scalar = 1, phase_shift = 0, y_shift = 0):
         y1 = [y_sine(i) for i in theta]
-        y2 = [y_sine(i, vertical_scalar, horizontal_scalar, x_shift, y_shift) for i in theta]
+        y2 = [y_sine(i, vertical_scalar, horizontal_scalar, phase_shift, y_shift) for i in theta]
         plt.plot(theta, y1, 'k--')
         plt.plot(theta, y2, 'b')
         plt.show()
     return fn
 
 def plot_cosine(theta = RANGE_PRINCIPAL_INTERVAL):
-    def fn(vertical_scalar = 1, horizontal_scalar = 1, x_shift = 0, y_shift = 0):
-        y = [y_cosine(i, vertical_scalar, horizontal_scalar, x_shift, y_shift) for i in theta]
+    def fn(vertical_scalar = 1, horizontal_scalar = 1, phase_shift = 0, y_shift = 0):
+        y = [y_cosine(i, vertical_scalar, horizontal_scalar, phase_shift, y_shift) for i in theta]
         plt.plot(theta, y)
         plt.show()
     return fn
 
-def plot_cosine_with_unscaled(theta = RANGE_PRINCIPAL_INTERVAL, vertical_scalar = 1, horizontal_scalar = 1, x_shift = 0, y_shift = 0):
-    def fn(vertical_scalar = 1, horizontal_scalar = 1, x_shift = 0, y_shift = 0):
+def plot_cosine_with_unscaled(theta = RANGE_PRINCIPAL_INTERVAL, vertical_scalar = 1, horizontal_scalar = 1, phase_shift = 0, y_shift = 0):
+    def fn(vertical_scalar = 1, horizontal_scalar = 1, phase_shift = 0, y_shift = 0):
         y1 = [y_cosine(i) for i in theta]
-        y2 = [y_cosine(i, vertical_scalar, horizontal_scalar, x_shift, y_shift) for i in theta]
+        y2 = [y_cosine(i, vertical_scalar, horizontal_scalar, phase_shift, y_shift) for i in theta]
         plt.plot(theta, y1, 'k--')
         plt.plot(theta, y2, 'b')
         plt.show()
     return fn
 
 def plot_cosecant(theta = RANGE_PRINCIPAL_INTERVAL):
-    def fn(vertical_scalar = 1, horizontal_scalar = 1, x_shift = 0, y_shift = 0, y_axis_min=-4, y_axis_max=4):
-        y = [y_cosecant(i, vertical_scalar, horizontal_scalar, x_shift, y_shift) for i in theta]
+    def fn(vertical_scalar = 1, horizontal_scalar = 1, phase_shift = 0, y_shift = 0, y_axis_min=-4, y_axis_max=4):
+        y = [y_cosecant(i, vertical_scalar, horizontal_scalar, phase_shift, y_shift) for i in theta]
         
         plt.xlim(theta.min() * 1.1, theta.max() * 1.1)
         plt.ylim(y_axis_min, y_axis_max)
@@ -105,9 +115,9 @@ def plot_cosecant(theta = RANGE_PRINCIPAL_INTERVAL):
     return fn
 
 def plot_cosecant_with_unscaled(theta = RANGE_PRINCIPAL_INTERVAL):
-    def fn(vertical_scalar = 1, horizontal_scalar = 1, x_shift = 0, y_shift = 0, y_axis_min=-4, y_axis_max=4):
+    def fn(vertical_scalar = 1, horizontal_scalar = 1, phase_shift = 0, y_shift = 0, y_axis_min=-4, y_axis_max=4):
         y1 = [y_sine(i) for i in theta]
-        y2 = np.array([y_cosecant(i, vertical_scalar, horizontal_scalar, x_shift, y_shift) for i in theta])
+        y2 = np.array([y_cosecant(i, vertical_scalar, horizontal_scalar, phase_shift, y_shift) for i in theta])
 
         plt.xlim(theta.min() * 1.1, theta.max() * 1.1)
         plt.ylim(y_axis_min, y_axis_max)
@@ -118,8 +128,8 @@ def plot_cosecant_with_unscaled(theta = RANGE_PRINCIPAL_INTERVAL):
     return fn
 
 def plot_secant(theta = RANGE_PRINCIPAL_INTERVAL):
-    def fn(vertical_scalar = 1, horizontal_scalar = 1, x_shift = 0, y_shift = 0, y_axis_min=-4, y_axis_max=4):
-        y = [y_secant(i, vertical_scalar, horizontal_scalar, x_shift, y_shift) for i in theta]
+    def fn(vertical_scalar = 1, horizontal_scalar = 1, phase_shift = 0, y_shift = 0, y_axis_min=-4, y_axis_max=4):
+        y = [y_secant(i, vertical_scalar, horizontal_scalar, phase_shift, y_shift) for i in theta]
         
         plt.xlim(theta.min() * 1.1, theta.max() * 1.1)
         plt.ylim(y_axis_min, y_axis_max)
@@ -129,14 +139,73 @@ def plot_secant(theta = RANGE_PRINCIPAL_INTERVAL):
     return fn
 
 def plot_secant_with_unscaled(theta = RANGE_PRINCIPAL_INTERVAL):
-    def fn(vertical_scalar = 1, horizontal_scalar = 1, x_shift = 0, y_shift = 0, y_axis_min=-4, y_axis_max=4):
+    def fn(vertical_scalar = 1, horizontal_scalar = 1, phase_shift = 0, y_shift = 0, y_axis_min=-4, y_axis_max=4):
         y1 = [y_cosine(i) for i in theta]
-        y2 = np.array([y_secant(i, vertical_scalar, horizontal_scalar, x_shift, y_shift) for i in theta])
+        y2 = np.array([y_secant(i, vertical_scalar, horizontal_scalar, phase_shift, y_shift) for i in theta])
 
         plt.xlim(theta.min() * 1.1, theta.max() * 1.1)
         plt.ylim(y_axis_min, y_axis_max)
         
         plt.plot(theta, y1, 'k--')
         plt.plot(theta, y2, 'b')
+        plt.show()
+    return fn
+
+def plot_tangent(theta = RANGE_PRINCIPAL_INTERVAL):
+    def fn(vertical_scalar = 1, horizontal_scalar = 1, phase_shift = 0, y_shift = 0, y_axis_min=-4, y_axis_max=4):
+        y = [y_tangent(i, vertical_scalar, horizontal_scalar, phase_shift, y_shift) for i in theta]
+        
+        plt.xlim(theta.min() * 1.1, theta.max() * 1.1)
+        plt.ylim(y_axis_min, y_axis_max)
+
+        plt.plot(theta, y)
+        plt.show()
+    return fn
+
+def plot_tangent_with_unscaled(theta = RANGE_PRINCIPAL_INTERVAL):
+    def fn(vertical_scalar = 1, horizontal_scalar = 1, phase_shift = 0, y_shift = 0, y_axis_min=-4, y_axis_max=4):
+        y1 = [y_sine(i) for i in theta]
+        y2 = [y_cosine(i) for i in theta]
+        y3 = np.array([y_tangent(i, vertical_scalar, horizontal_scalar, phase_shift, y_shift) for i in theta])
+        asymptote1, asymptote2 = adjacent_vertical_asympotes(TrigFunction.TANGENT)(horizontal_scalar, phase_shift)
+
+        plt.xlim(theta.min() * 1.1, theta.max() * 1.1)
+        plt.ylim(y_axis_min, y_axis_max)
+
+        plt.plot(theta, y1, 'k--')
+        plt.plot(theta, y2, 'k--')
+        plt.plot(np.full(len(y3), asymptote1), y3, 'k--')
+        plt.plot(np.full(len(y3), asymptote2), y3, 'k--')
+        plt.plot(theta, y3, 'b')
+        plt.show()
+    return fn
+
+
+def plot_cotangent(theta = RANGE_PRINCIPAL_INTERVAL):
+    def fn(vertical_scalar = 1, horizontal_scalar = 1, phase_shift = 0, y_shift = 0, y_axis_min=-4, y_axis_max=4):
+        y = [y_cotangent(i, vertical_scalar, horizontal_scalar, phase_shift, y_shift) for i in theta]
+        
+        plt.xlim(theta.min() * 1.1, theta.max() * 1.1)
+        plt.ylim(y_axis_min, y_axis_max)
+
+        plt.plot(theta, y)
+        plt.show()
+    return fn
+
+def plot_cotangent_with_unscaled(theta = RANGE_PRINCIPAL_INTERVAL):
+    def fn(vertical_scalar = 1, horizontal_scalar = 1, phase_shift = 0, y_shift = 0, y_axis_min=-4, y_axis_max=4):
+        y1 = [y_sine(i) for i in theta]
+        y2 = [y_cosine(i) for i in theta]
+        y3 = np.array([y_cotangent(i, vertical_scalar, horizontal_scalar, phase_shift, y_shift) for i in theta])
+        asymptote1, asymptote2 = adjacent_vertical_asympotes(TrigFunction.COTANGENT)(horizontal_scalar, phase_shift)
+
+        plt.xlim(theta.min() * 1.1, theta.max() * 1.1)
+        plt.ylim(y_axis_min, y_axis_max)
+        
+        plt.plot(theta, y1, 'k--')
+        plt.plot(theta, y2, 'k--')
+        plt.plot(np.full(len(y3), asymptote1), y3, 'k--')
+        plt.plot(np.full(len(y3), asymptote2), y3, 'k--')
+        plt.plot(theta, y3, 'b')
         plt.show()
     return fn

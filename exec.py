@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import math
 from maths.arithmetic.utils import integers_within_interval
 from maths.arithmetic.conversions import inches_to_centimeters, centimeters_to_inches, feet_to_miles
 from maths.algebra.functions import is_function_even, is_function_odd
@@ -12,8 +11,9 @@ from maths.trigonometry.identities import values_from, secant_from_values, cotan
 from maths.trigonometry.unit_circle import coterminal_angles_within_interval, display_common_unit_circle_coordinates
 from maths.trigonometry.circle import sector_area, revolutions_to_radians
 from physics.velocity import linear_velocity, angular_velocity, angular_velocity_from_revolutions_per_minute, linear_velocity_from_angular_velocity, angular_velocity_from_linear_velocity, angular_velocity_from_revolutions_per_second
-from maths.trigonometry.graphing import plot_sine, plot_cosine, plot_sine_with_unscaled, plot_cosine_with_unscaled, plot_cosecant_with_unscaled, plot_cosecant, plot_secant, plot_secant_with_unscaled, period, amplitude
-
+from maths.trigonometry.graphing import plot_tangent_with_unscaled, plot_cotangent, plot_cotangent_with_unscaled, adjacent_vertical_asympotes
+from external_samples.quadtree.quadtree_demo1 import quadtree_demo1
+from external_samples.quadtree.quadtree_demo2 import quadtree_demo2
 
 from matplotlib import pyplot as plt
 import numpy as np
@@ -32,17 +32,16 @@ def main(args=None):
     # print(.620 * PI)
     # print(revolutions_per_minute(x), " revolutions per minute")
 
-    # theta = np.linspace(-PI, 4 * PI)
-    # plot_secant_with_unscaled(theta)(-2)
+    # theta = np.linspace(-PI, 4 * PI, 1000)
+    # plot_tangent_with_unscaled(theta)()
+    # plot_tangent_with_unscaled(theta)(2, 2 / 3, 0, 0)
+    # x = adjacent_vertical_asympotes(TrigFunction.COTANGENT)(1/2, 0)
+    # print(x)
+    # print('A', -PI, PI, 3 * PI)
+    # print('B', 0, 2 * PI, 4 * PI)
+    # print('C', 0, PI, 2 * PI)
 
-    p = period(TrigFunction.SINE)(PI ** 2)
-    print(p, 2 / PI)
-    p = period(TrigFunction.TANGENT)(4/3)
-    print(p, 3 * PI / 4)
-    p = period(TrigFunction.SECANT)(1/3)
-    print(p, 6 * PI)
-    p = period(TrigFunction.COTANGENT)(4 * PI / 3)
-    print(p, 3 / 2)
+    quadtree_demo2()
 
 
     # display_common_unit_circle_coordinates()
