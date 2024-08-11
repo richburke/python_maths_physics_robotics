@@ -2,5 +2,36 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/python
 {
   "name": "Python - Maths, Physics, Robotics",
-  "build": { "dockerfile": "Dockerfile" }
+  "build": { "dockerfile": "Dockerfile" },
+  "privileged": true,
+  "runArgs": [
+    "--name",
+    "${localEnv:USER}_python_maths",
+    "--security-opt",
+    "seccomp=unconfined",
+    "--network=host",
+    "-e DISPLAY=host.docker.internal:0"
+  ],
+  // "containerEnv": { // Needed for linux
+  //   // "DISPLAY": "unix: 0"
+  // },
+  // },
+  // "runArgs": [
+  //   "--name",
+  //   "${localEnv:USER}_python_maths",
+  //   "--security-opt",
+  //   "seccomp=unconfined",
+  //   // Graphical display
+  //   "--network=host",
+  //   // "--volume=/tmp/.X11-unix:/tmp/.X11-unix:rw",
+  //   // "--env=DISPLAY=${HOSTNAME}:0"
+  //   "-e DISPLAY=host.docker.internal:0"
+  //   // "--env=DISPLAY=${env:DISPLAY}" Needed for linux
+  // ],
+  // ], Needed for linux
+  "customizations": {
+    "vscode": {
+        "extensions":["ms-python.python", "ms-azuretools.vscode-docker", "johnpapa.vscode-peacock"]
+    }
+  }
 }
