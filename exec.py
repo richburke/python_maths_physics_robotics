@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-from maths.arithmetic.utils import asub, asquared_sum
+import numpy as np
+from matplotlib import pyplot as plt
+from maths.arithmetic.utils import asubtract, asquared_sum
 # from maths.arithmetic.conversions import inches_to_centimeters, centimeters_to_inches, feet_to_miles
 # from maths.algebra.functions import is_function_even, is_function_odd
 # from maths.geometry.defines import RightTriangleLeg, RightTriangleFields
@@ -14,11 +16,9 @@ from maths.arithmetic.utils import asub, asquared_sum
 # from maths.trigonometry.graphing import plot_tangent_with_unscaled, plot_cotangent, plot_cotangent_with_unscaled, adjacent_vertical_asympotes
 # from external_samples.quadtree.quadtree_demo1 import quadtree_demo1
 # from external_samples.quadtree.quadtree_demo2 import quadtree_demo2
+from maths.statistics.defines import Mean
 from maths.statistics.utils import mean
-from maths.statistics.regression import least_squares_regression, r_squared, standard_error_of_the_estimate
-
-from matplotlib import pyplot as plt
-import numpy as np
+from maths.statistics.correlation import linear_regression, polynomial_regression_model, polynomial_regression, least_squares_regression, r_squared, standard_error_of_the_estimate
 
 
 def main(args=None):
@@ -54,33 +54,56 @@ def main(args=None):
 
     # plt.ioff()
 
+    # m = np.array([[0.1, 1], [0.6, 1]])
+    # n = np.array([0.1, 0.8])
+    # inv = np.linalg.inv(m)
+    # mm = np.matmul(inv, n)
+    # print(mm)
+
     # xs = [-4, -3, -2, -1, 0, 1, 2, 3, 4]
     # ys = [16, 9, 4, 1, 0, 1, 4, 9, 16]
-    xs = [1, 2, 3, 4, 5]
-    ys = [2, 4, 5, 4, 5]
+    xs = np.array([1, 2, 3, 4, 5])
+    ys = np.array([2, 4, 5, 4, 5])
 
     axis = plt.gca()
     axis.set_xlim([0, 6])
     axis.set_ylim([0, 6])
     plt.scatter(xs, ys)
 
-    x_mean = mean(xs)
-    y_mean = mean(ys)
+    x_mean = mean(Mean.ARITHMETIC)(xs)
+    y_mean = mean(Mean.ARITHMETIC)(ys)
     plt.plot([x_mean, x_mean], [0, 6], color='red', linestyle='dashed')
     plt.plot([0, 6], [y_mean, y_mean], color='red', linestyle='dashed')
 
-    f = least_squares_regression(xs)(ys)
-
-    xs2 = [0, 1, 2, 3, 4, 5, 6]
-    ys2 = [f(x) for x in xs2]
-
-    print(ys2)
-    plt.plot(xs2, ys2, color='green')
-
+    xn = np.linspace(0, 6, 100)
+    yn = linear_regression(xs)(ys)(xn)
+    plt.plot(xn, yn, color='blue', linestyle='dashed')
     plt.show()
 
-    print(r_squared(xs)(ys))
-    print(standard_error_of_the_estimate(xs)(ys))
+    # regressor = LinearRegression()
+    # poly_features = PolynomialFeatures(degree=8, include_bias=False)
+
+    xp = 4 * np.random.rand(100, 1) - 2
+    yp = 4 + 2 * xp + 5 * xp ** 2 + 10 * np.random.randn(100, 1)
+
+    # xn_poly = poly_features.fit_transform(xn)
+    # regressor.fit(xn_poly, yn)
+
+    # x_vals = np.linspace(-2, 2, 100).reshape(-1, 1)
+    # x_vals_poly = poly_features.fit_transform(x_vals)
+    # y_vals = regressor.predict(x_vals_poly)
+
+    x_vals = np.linspace(-2, 2, 100)
+    y_vals = polynomial_regression(2)(xp)(yp)(x_vals)
+
+    # d = polynomial_regression_model(2)(xp)(yp)
+
+    plt.scatter(xp, yp)
+    plt.plot(x_vals, y_vals, color='gray', linestyle='dashed')
+    plt.show()
+
+    # print(r_squared(xs)(ys))
+    # print(standard_error_of_the_estimate(xs)(ys))
 
 
 if __name__ == "__main__":

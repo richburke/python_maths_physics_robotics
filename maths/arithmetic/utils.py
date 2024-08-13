@@ -10,7 +10,7 @@ def sign_factor(value):
     return -1 if value < 0 else 1
 
 
-def asub(v):
+def asubtract(v):
     return lambda x: x - v
 
 

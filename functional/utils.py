@@ -1,6 +1,6 @@
 import os
 import sys
-from maths.arithmetic.utils import asub
+from maths.arithmetic.utils import asubtract
 
 sys.path.extend([os.getcwd()])
 
