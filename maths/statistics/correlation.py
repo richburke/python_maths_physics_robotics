@@ -48,6 +48,7 @@ def linear_regression_model(xs):
 def linear_regression(xs):
     def fn(ys):
         model = linear_regression_model(xs)(ys)
+        print(model.score(xs.reshape(-1, 1), ys.reshape(-1, 1)))
 
         def gn(x_predicated):
             x_predicated = x_predicated.reshape(-1, 1)
