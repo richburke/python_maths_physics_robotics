@@ -95,7 +95,7 @@ heapify(queue)
 distances = defaultdict(lambda: float('inf'))
 distances[start] = 0
 visited = set(start)
-parent = {}
+parent = {None: start}
 
 while queue:
     distance, current = heappop(queue)
@@ -118,14 +118,11 @@ while queue:
             heappush(queue, (heuristic_distance, neighbor))
             parent[neighbor] = current
 
-
 path = []
 key = goal
-while key in parent.keys():
+while key != start:
     key = parent[key]
     path.insert(0, key)
-    if key == start:
-        break
 path.append(goal)
 
 plt.ioff()

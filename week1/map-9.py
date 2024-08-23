@@ -45,9 +45,6 @@ def get_neighbors(map):
   def fn(column, row):
     neighbors = []
 
-    # if (column, row) == (300, 300): # Wormhole
-    #     return([(0,(15,15))])
-
     for move in moves:
         candidate_column = column + move[0]
         candidate_row = row + move[1]
@@ -91,22 +88,6 @@ def assign_start(map):
 def euclidean_distance(a, b):
   return ((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2) ** 0.5
 
-
-def map2world(px, py):
-    wx = (px / PLOT_PIXELS_PER_UNIT / PLOT_SCALE_WIDTH) - PLOT_LOCATION_OFFSET_X - PLOT_SHIFT_X
-    wy = -(py / PLOT_PIXELS_PER_UNIT / PLOT_SCALE_HEIGHT) + PLOT_LOCATION_OFFSET_Y + PLOT_SHIFT_Y
-
-    # Add offset; factor for plot's pixels. 
-    # px = np.floor((xw + PLOT_LOCATION_OFFSET_X + PLOT_SHIFT_X) * PLOT_SCALE_WIDTH * PLOT_PIXELS_PER_UNIT)
-    # # Add offset; shift Y up for more centered display; factor for plot's pixels. 
-    # py = np.floor((-yw + PLOT_LOCATION_OFFSET_Y + PLOT_SHIFT_Y) * PLOT_SCALE_HEIGHT * PLOT_PIXELS_PER_UNIT)
-    # px = min(px, PLOT_WIDTH - 1) # Pixels are 0-indexed
-    # py = min(py, PLOT_HEIGHT - 1) # Pixels are 0-indexed
-    # px = max(px, 0)
-    # py = max(py, 0)
-    
-    return [wx, wy]
-    # return [int(px), int(py)]
 
 rows = 20
 cols = 30
@@ -154,11 +135,9 @@ while queue:
 
 path = []
 key = goal
-while key in parent.keys():
+while key != start:
     key = parent[key]
     path.insert(0, key)
-    if key == start:
-        break
 path.append(goal)
 
 plt.ioff()
